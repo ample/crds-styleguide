@@ -67,9 +67,6 @@ module.exports = {
       {
       from: 'src/assets',
       to: 'assets',
-      }, {
-        from: './apache_site.conf',
-        to: 'apache_site.conf'
       },
       {
         context: './node_modules/crds-styles/assets/stylesheets/svg/assets/',
