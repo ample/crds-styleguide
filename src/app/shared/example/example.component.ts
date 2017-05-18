@@ -101,6 +101,7 @@ export class ExampleComponent implements OnInit, AfterViewInit, AfterViewChecked
     let els = this.el.getElementsByTagName('pre');
     for (let i = 0; i < els.length; i++) {
       this.markup = Prism.highlight(this.markup, Prism.languages[language]);
+      els[i].classList.add('language-');
     }
   }
 

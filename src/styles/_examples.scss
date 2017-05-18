@@ -93,6 +93,10 @@ crds-example {
     @include clearfix;
     background: $gray;
     border: 1px solid darken($gray, 10);
+
+    .dark-theme & {
+      border-color: darken($cr-gray-dark, 10);
+    }
   }
   .tree {
     @include make-sm-column(3);
@@ -114,4 +118,15 @@ crds-example {
     border-radius: 0;
     border: none;
   }
+}
+
+.example-container {
+  background: transparent;
+
+  datepicker-inner > * {
+    background: transparent;
+    border: none;
+  }
+
+  // .dark-theme pre[class*="language-"]
 }
