@@ -1,7 +1,7 @@
 <div #contentRef class="crds-example crds-inline-markup" [hidden]="!markupInline"><ng-content></ng-content></div>
 
 <div class="crds-example crds-embedded-markup" [hidden]="markupInline">
-  <iframe [src]="iframeSrc" *ngIf="iframeSrc !== undefined" width="{{width}}" height="{{height}}" frameborder="0" allowTransparency="true"></iframe>
+  <iframe [src]="iframeSrc" [id]="iframeId" *ngIf="iframeSrc !== undefined" width="{{width}}" height="{{height}}" frameborder="0" allowTransparency="true"></iframe>
   <div class="example-row">
     <div class="tree">
       <div class="list-group">

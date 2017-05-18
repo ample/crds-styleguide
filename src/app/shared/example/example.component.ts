@@ -2,6 +2,8 @@ import { Component, Input, OnInit, AfterViewInit, AfterViewChecked, ElementRef, 
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Http, Response } from '@angular/http';
 
+import { ThemeToggleSwitchService } from '../../directives/theme-toggle-switch/theme-toggle-switch.service';
+
 let Prism = require('prismjs');
 let path = require('path');
 let entities = new (require('html-entities').Html5Entities)();
@@ -11,12 +13,15 @@ import 'prismjs/components/prism-typescript';
 
 @Component({
   selector: 'ddk-example',
+  providers: [ThemeToggleSwitchService],
   templateUrl: 'example.component.html'
 })
 export class ExampleComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   private el: Element;
+  private iframeDoc: any;
   private iframeSrc: SafeResourceUrl;
+  private iframeId: string;
   private manifest: any;
   private rootPath = '/examples/';
   private path: string;
@@ -32,8 +37,16 @@ export class ExampleComponent implements OnInit, AfterViewInit, AfterViewChecked
   @Input() height = '100';
   @ViewChild('contentRef') contentRef;
 
-  constructor(private sanitizer: DomSanitizer, private http: Http, private elementRef: ElementRef) {
+  constructor(private sanitizer: DomSanitizer,
+              private http: Http,
+              private elementRef: ElementRef,
+              private toggleState: ThemeToggleSwitchService) {
     this.el = <Element>this.elementRef.nativeElement;
+    console.log(toggleState);
+    toggleState.state.subscribe((value) => {
+        console.log(`ExampleComponent: ${value}`);
+      }
+    );
   }
 
   ngOnInit() {
@@ -42,6 +55,18 @@ export class ExampleComponent implements OnInit, AfterViewInit, AfterViewChecked
       this.markup = '<html></html>';
       this.http.get(`${this.path}manifest.json`).subscribe(this.parseManifest.bind(this));
     }
+
+    // this.toggleState.state.subscribe(
+    //   (x) => {
+    //     console.log('Next: ' + x.toString());
+    //   },
+    //   (err) => {
+    //     console.log('Error: ' + err);
+    //   },
+    //   () => {
+    //     console.log('Completed');
+    //   }
+    // );
   }
 
   ngAfterViewChecked() {
@@ -67,6 +92,8 @@ export class ExampleComponent implements OnInit, AfterViewInit, AfterViewChecked
     this.files = this.manifest.files;
     this.loadResource(this.files[0]);
 
+    this.iframeId = `iframe-${Math.random().toString(36).substring(3)}`;
+
     let url = `${this.path}${this.manifest.entry}`;
     this.iframeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
@@ -76,6 +103,9 @@ export class ExampleComponent implements OnInit, AfterViewInit, AfterViewChecked
       let filetype = this.getFileType(url);
       this.markup = data['_body'];
       this.addSyntaxHighlighting(filetype);
+
+      let iframe = document.getElementById(this.iframeId);
+      this.iframeDoc = (iframe as any).contentDocument || (iframe as any).contentWindow.document;
     });
   }
 
