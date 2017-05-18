@@ -42,11 +42,15 @@ export class ExampleComponent implements OnInit, AfterViewInit, AfterViewChecked
               private elementRef: ElementRef,
               private toggleState: ThemeToggleSwitchService) {
     this.el = <Element>this.elementRef.nativeElement;
-    console.log(toggleState);
-    toggleState.state.subscribe((value) => {
-        console.log(`ExampleComponent: ${value}`);
-      }
-    );
+    // console.log(toggleState);
+    // toggleState.state.subscribe((value) => {
+    //     console.log(`ExampleComponent: ${value}`);
+    //   }
+    // );
+    // toggleState.stateChange.subscribe((value) => {
+    //     console.log(`ThemeToggleSwitchComponent: ${value}`);
+    //   }
+    // );
   }
 
   ngOnInit() {

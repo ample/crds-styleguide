@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output  } from '@angular/core';
+import { Component } from '@angular/core';
 import { ThemeToggleSwitchService } from './theme-toggle-switch.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class ThemeToggleSwitchComponent {
 
   constructor(private toggleState: ThemeToggleSwitchService) {
     this.body = document.getElementsByTagName('body')[0];
-    toggleState.state.subscribe((value) => {
+    toggleState.stateChange.subscribe((value) => {
         console.log(`ThemeToggleSwitchComponent: ${value}`);
       }
     );
