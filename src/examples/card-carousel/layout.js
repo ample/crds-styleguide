@@ -1,40 +1,57 @@
-var CRDS = window['CRDS'] || {};
+window['CRDS'] = window['CRDS'] || {};
 
-CRDS.CardCarousel = (function() {
+CRDS.CardCarousel = function() {
+  return this.addEvents();
+}
 
-  return {
-    addStyles: function() {
-      var carousel = document.body.querySelector('.card-deck--carousel');
-      var cards = carousel.querySelectorAll('.card');
+CRDS.CardCarousel.prototype.constructor = CRDS.CardCarousel;
 
-      if (window.matchMedia('(max-width: 769px)').matches) {
-        carousel.classList.remove('card-deck');
+CRDS.CardCarousel.prototype.getCarousel = function() {
+  return document.body.querySelector('.card-deck--carousel');
+};
 
-        new Flickity(carousel, {
-          cellAlign: 'left',
-          contain: true,
-          prevNextButtons: false,
-          pageDots: false
-        });
+CRDS.CardCarousel.prototype.getCards = function() {
+  return this.getCarousel().querySelectorAll('.card');
+};
 
-        for (var card = 0; card < cards.length; card++) {
-          cards[card].classList.add('carousel-cell');
-        }
-      } else {
-        carousel.classList.add('card-deck');
+CRDS.CardCarousel.prototype.createCarousel = function() {
+  this.getCarousel().classList.remove('card-deck');
+  new Flickity(this.getCarousel(), {
+    cellAlign: 'left',
+    contain: true,
+    prevNextButtons: false,
+    pageDots: false
+  });
+  this.updateCardClass('add');
+};
 
-        new Flickity(carousel).destroy();
+CRDS.CardCarousel.prototype.updateCardClass = function(action) {
+  for (var card = 0; card < this.getCards().length; card++) {
+    this.getCards()[card].classList[action]('carousel-cell');
+  };
+};
 
-        for (var card = 0; card < cards.length; card++) {
-          cards[card].classList.remove('carousel-cell');
-        }
-      }
-    }
-  }
+CRDS.CardCarousel.prototype.destroyCarousel = function() {
+  this.getCarousel().classList.add('card-deck');
+  new Flickity(this.getCarousel()).destroy();
+  this.updateCardClass('remove');
+};
 
-})();
+CRDS.CardCarousel.prototype.addStyles = function() {
+  if (window.matchMedia('(max-width: 769px)').matches) {
+    this.createCarousel();
+  } else {
+    this.destroyCarousel();
+  };
+};
 
-("load resize".split(" ")).forEach(function(e){
-  window.addEventListener(e, CRDS.CardCarousel.addStyles, false);
-});
+CRDS.CardCarousel.prototype.addEvents = function() {
+  var _this = this;
+  ['load', 'resize'].forEach(function(eventName) {
+    window.addEventListener(eventName, function() {
+      _this.addStyles();
+    }, false);
+  });
+};
 
+new CRDS.CardCarousel();
