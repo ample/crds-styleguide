@@ -42,6 +42,7 @@ import { FormRadiosComponent } from './forms/radios/radios.component';
 import { FormCheckboxesComponent } from './forms/checkboxes/checkboxes.component';
 import { FormTogglesComponent } from './forms/toggles/toggles.component';
 import { FormNestedFormsComponent } from './forms/nested-forms/nested-forms.component';
+import { FormNumberStepperComponent } from './forms/number-stepper/number-stepper.component';
 import { FormStatesComponent } from './forms/form-states/form-states.component';
 import { FormDatepickerComponent } from './forms/datepicker/datepicker.component';
 import { FormTimepickerComponent } from './forms/timepicker/timepicker.component';
@@ -185,6 +186,10 @@ const learnMoreRoutes: Routes = [
           {
             path: 'toggles',
             component: FormTogglesComponent
+          },
+          {
+            path: 'number-stepper',
+            component: FormNumberStepperComponent
           },
           {
             path: 'nested-forms',

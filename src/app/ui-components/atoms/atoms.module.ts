@@ -50,6 +50,7 @@ import { FormInputsComponent } from './forms/inputs/inputs.component';
 import { FormRadiosComponent } from './forms/radios/radios.component';
 import { FormCheckboxesComponent } from './forms/checkboxes/checkboxes.component';
 import { FormTogglesComponent } from './forms/toggles/toggles.component';
+import { FormNumberStepperComponent } from './forms/number-stepper/number-stepper.component';
 import { FormNestedFormsComponent } from './forms/nested-forms/nested-forms.component';
 import { FormStatesComponent } from './forms/form-states/form-states.component';
 import { FormDatepickerComponent } from './forms/datepicker/datepicker.component';
@@ -91,6 +92,7 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
     FormRadiosComponent,
     FormCheckboxesComponent,
     FormTogglesComponent,
+    FormNumberStepperComponent,
     FormNestedFormsComponent,
     FormDatepickerComponent,
     FormGroupsComponent,
